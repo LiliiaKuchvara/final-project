@@ -6,11 +6,9 @@ BigQuery project: master-isotope-509708-m2
 Dataset: food_delivery
 Dataset location: EU
 Main data period: 2024--2025.
-
 This document describes the 9 source tables in the dataset, including
 their columns, BigQuery data types, purpose, examples, and
 relationships.
-
 Column names and data types reflect the schemas checked during the
 BigQuery upload. Examples illustrate the expected value format; some are
 representative examples rather than verified values from a specific
@@ -19,86 +17,69 @@ source row.
 Purpose: Main orders table. Contains information about order time,
 customer, restaurant, courier, payment, order value, delivery, and
 customer rating.
-  Column                BigQuery type     Description       Example
-  order_id            STRING            Identifier of the ORD001
-order.            
-
-  customer_id         STRING            Identifier of the CUST001
+________________________________________
+Column BigQuery type Description Example
+________________________________________
+order_id STRING Identifier of the ORD001
+order. 
+customer_id STRING Identifier of the CUST001
 customer who
 placed the order. 
-
-  restaurant_id       STRING            Identifier of the REST001
+restaurant_id STRING Identifier of the REST001
 restaurant that
 received the
-order.            
-
-  courier_id          STRING            Identifier of the COURIER001
+order. 
+courier_id STRING Identifier of the COURIER001
 assigned courier;
-may be NULL.      
-
-  order_datetime      TIMESTAMP         Date and time     2024-01-15 12:30:00 UTC
+may be NULL. 
+order_datetime TIMESTAMP Date and time 2024-01-15 12:30:00 UTC
 when the order
-was created.      
-
-  platform            STRING            Platform used to  app
-place the order.  
-
-  payment_method      STRING            Payment method    card
+was created. 
+platform STRING Platform used to app
+place the order. 
+payment_method STRING Payment method card
 used for the
-order.            
-
-  promo_code          STRING            Promotional code  WELCOME20
+order. 
+promo_code STRING Promotional code WELCOME20
 applied to the
 order; may be
-NULL.             
-
-  status              STRING            Current/final     delivered
-order status.     
-
-  cancel_reason       STRING            Reason for        long_wait
+NULL. 
+status STRING Current/final delivered
+order status. 
+cancel_reason STRING Reason for long_wait
 cancellation;
 generally
 populated for
 cancelled orders. 
-
-  items_count         INTEGER           Number of items   3
-in the order.     
-
-  subtotal_uah        FLOAT             Cost of items     500.0
+items_count INTEGER Number of items 3
+in the order. 
+subtotal_uah FLOAT Cost of items 500.0
 before discount
 and delivery fee,
-in UAH.           
-
-  discount_uah        FLOAT             Discount amount   -100.0
+in UAH. 
+discount_uah FLOAT Discount amount -100.0
 in UAH. Negative
 values were
 present in the
-source data.      
-
-  delivery_fee_uah    FLOAT             Delivery fee in   50.0
-UAH.              
-
-  total_uah           FLOAT             Total order       450.0
+source data. 
+delivery_fee_uah FLOAT Delivery fee in 50.0
+UAH. 
+total_uah FLOAT Total order 450.0
 amount as
 provided by the
-source, in UAH.   
-
-  tip_uah             INTEGER           Courier tip in    20
-UAH.              
-
-  distance_km         FLOAT             Delivery distance 3.5
-in kilometers.    
-
-  prep_time_min       FLOAT             Order preparation 20.0
-time in minutes.  
-
-  promised_time_min   FLOAT             Promised delivery 40.0
-time in minutes.  
-
-  delivery_time_min   FLOAT             Actual delivery   38.0
+source, in UAH. 
+tip_uah INTEGER Courier tip in 20
+UAH. 
+distance_km FLOAT Delivery distance 3.5
+in kilometers. 
+prep_time_min FLOAT Order preparation 20.0
+time in minutes. 
+promised_time_min FLOAT Promised delivery 40.0
+time in minutes. 
+delivery_time_min FLOAT Actual delivery 38.0
 time in minutes;
-may be NULL.      
-customer_rating     FLOAT             Customer rating   5.0
+may be NULL. 
+customer_rating FLOAT Customer rating 5.0
 for the order;
 may be NULL.
 Keys and relationships: - order_id is the logical order
@@ -110,36 +91,32 @@ restaurants. - courier_id links orders to couriers.
 Purpose: Customer dimension table. Contains registration date, city,
 demographic attributes, acquisition channel, device operating system,
 and loyalty program status.
-  Column                  BigQuery type     Description       Example
-  customer_id           STRING            Customer          CUST001
-identifier.       
-
-  signup_date           DATE              Date when the     2024-02-10
+________________________________________
+Column BigQuery type Description Example
+________________________________________
+customer_id STRING Customer CUST001
+identifier. 
+signup_date DATE Date when the 2024-02-10
 customer
-registered.       
-
-  city                  STRING            Customer's city.  Kyiv
-
-  age                   FLOAT             Customer age;     28.0
+registered. 
+city STRING Customer's city. Kyiv
+age FLOAT Customer age; 28.0
 missing and
 invalid values
 are present in
-the source.       
-
-  gender                STRING            Customer gender   female
+the source. 
+gender STRING Customer gender female
 category; missing
 values are
-present.          
-
-  acquisition_channel   STRING            Marketing channel Google Ads
+present. 
+acquisition_channel STRING Marketing channel Google Ads
 through which the
 customer was
-acquired.         
-
-  device_os             STRING            Operating system  Android
+acquired. 
+device_os STRING Operating system Android
 of the customer's
-device.           
-loyalty_member        INTEGER           Indicator of      1
+device. 
+loyalty_member INTEGER Indicator of 1
 membership in the
 loyalty program.
 Keys and relationships: - customer_id is the logical customer key;
@@ -150,32 +127,28 @@ in ab_test_sessions.
 Purpose: Restaurant partner dimension table. Contains restaurant
 city, cuisine, price level, average preparation time, service commission
 rate, and partnership start date.
-  Column                BigQuery type     Description       Example
-  restaurant_id       STRING            Restaurant        REST001
-identifier.       
-
-  restaurant_name     STRING            Restaurant name.  Green Noodle
-
-  city                STRING            City where the    Kyiv
+________________________________________
+Column BigQuery type Description Example
+________________________________________
+restaurant_id STRING Restaurant REST001
+identifier. 
+restaurant_name STRING Restaurant name. Green Noodle
+city STRING City where the Kyiv
 restaurant
-operates.         
-
-  cuisine             STRING            Cuisine type or   Japanese
-food category.    
-
-  price_level         INTEGER           Restaurant price  2
-category.         
-
-  avg_prep_time_min   FLOAT             Restaurant's      25.0
+operates. 
+cuisine STRING Cuisine type or Japanese
+food category. 
+price_level INTEGER Restaurant price 2
+category. 
+avg_prep_time_min FLOAT Restaurant's 25.0
 average order
 preparation time
-in minutes.       
-
-  commission_rate     FLOAT             Service           0.25
+in minutes. 
+commission_rate FLOAT Service 0.25
 commission rate
 for the
-restaurant.       
-partner_since       DATE              Date when the     2023-06-01
+restaurant. 
+partner_since DATE Date when the 2023-06-01
 restaurant
 partnership
 began.
@@ -184,49 +157,45 @@ and is used in orders. - city can be joined to cities.city.
 5. couriers
 Purpose: Courier dimension table. Contains work city, vehicle type,
 employment type, hire date, and age.
-  Column              BigQuery type     Description       Example
-  courier_id        STRING            Courier           COURIER001
-identifier.       
-
-  city              STRING            City where the    Lviv
-courier works.    
-
-  vehicle_type      STRING            Courier's vehicle bike
-type.             
-
-  employment_type   STRING            Courier's         full_time
+________________________________________
+Column BigQuery type Description Example
+________________________________________
+courier_id STRING Courier COURIER001
+identifier. 
+city STRING City where the Lviv
+courier works. 
+vehicle_type STRING Courier's vehicle bike
+type. 
+employment_type STRING Courier's full_time
 employment
-arrangement.      
-
-  hire_date         DATE              Courier's hire    2024-03-01
-date.             
-courier_age       INTEGER           Courier's age.    26
+arrangement. 
+hire_date DATE Courier's hire 2024-03-01
+date. 
+courier_age INTEGER Courier's age. 26
 Keys and relationships: - courier_id identifies a courier and is
 used in orders. - city can be joined to cities.city.
 6. cities
 Purpose: City dimension table for the service's operating locations.
 Contains region, geographic coordinates, population, and service launch
 date.
-  Column            BigQuery type     Description       Example
-  city            STRING            City name;        Kyiv
+________________________________________
+Column BigQuery type Description Example
+________________________________________
+city STRING City name; Kyiv
 logical key of
 the dimension
-table.            
-
-  region          STRING            Region or         Kyiv City
+table. 
+region STRING Region or Kyiv City
 administrative
-area.             
-
-  latitude        FLOAT             Geographic        50.4501
-latitude.         
-
-  longitude       FLOAT             Geographic        30.5234
-longitude.        
-
-  population_k    INTEGER           City population   2960
+area. 
+latitude FLOAT Geographic 50.4501
+latitude. 
+longitude FLOAT Geographic 30.5234
+longitude. 
+population_k INTEGER City population 2960
 in thousands of
-people.           
-launch_date     DATE              Date when the     2022-01-01
+people. 
+launch_date DATE Date when the 2022-01-01
 service launched
 in the city.
 Keys and relationships: city is used to relate this table to
@@ -236,22 +205,21 @@ marketing_spend.
 Purpose: Daily weather observations for the service's operating
 cities. Used to analyze relationships between weather, delivery time,
 and cancellations.
-  Column               BigQuery type     Description       Example
-  date               DATE              Date of the       2024-01-15
+________________________________________
+Column BigQuery type Description Example
+________________________________________
+date DATE Date of the 2024-01-15
 weather
-observation.      
-
-  city               STRING            City for which    Kyiv
+observation. 
+city STRING City for which Kyiv
 the weather was
-recorded.         
-
-  condition          STRING            Weather condition rain
-category.         
-
-  temp_c             FLOAT             Air temperature   5.0
+recorded. 
+condition STRING Weather condition rain
+category. 
+temp_c FLOAT Air temperature 5.0
 in degrees
-Celsius.          
-precipitation_mm   FLOAT             Precipitation     2.5
+Celsius. 
+precipitation_mm FLOAT Precipitation 2.5
 amount in
 millimeters.
 Keys and relationships: - The logical key is the combination of
@@ -264,18 +232,18 @@ the restaurant table.
 Purpose: Monthly marketing spend by city and acquisition channel.
 Used to analyze marketing costs and calculate customer acquisition cost
 (CAC).
-  Column            BigQuery type     Description       Example
-  month           DATE              Date representing 2024-01-01
+________________________________________
+Column BigQuery type Description Example
+________________________________________
+month DATE Date representing 2024-01-01
 the month to
 which the spend
-belongs.          
-
-  city            STRING            City associated   Kyiv
-with the spend.   
-
-  channel         STRING            Marketing         Google Ads
-channel.          
-spend_uah       FLOAT             Marketing spend   12500.0
+belongs. 
+city STRING City associated Kyiv
+with the spend. 
+channel STRING Marketing Google Ads
+channel. 
+spend_uah FLOAT Marketing spend 12500.0
 in UAH.
 Keys and relationships: - The logical dimensions identifying a spend
 record are month, city, and channel. - city can be joined to
@@ -286,38 +254,33 @@ require normalization before matching.
 Purpose: User sessions included in the checkout A/B test. Contains
 test group, device, city, checkout duration, conversion indicator, and
 order value.
-  Column                BigQuery type     Description       Example
-  session_id          STRING            Session           SESSION001
-identifier.       
-
-  customer_id         STRING            Identifier of the CUST001
+________________________________________
+Column BigQuery type Description Example
+________________________________________
+session_id STRING Session SESSION001
+identifier. 
+customer_id STRING Identifier of the CUST001
 customer
 associated with
-the session.      
-
-  session_datetime    TIMESTAMP         Date and time of  2025-01-15 12:30:00 UTC
-the session.      
-
-  test_group          STRING            A/B test group:   control
+the session. 
+session_datetime TIMESTAMP Date and time of 2025-01-15 12:30:00 UTC
+the session. 
+test_group STRING A/B test group: control
 control or
-treatment.        
-
-  device_os           STRING            Operating system  Android
-or device type.   
-
-  city                STRING            City associated   Kyiv
+treatment. 
+device_os STRING Operating system Android
+or device type. 
+city STRING City associated Kyiv
 with the session. 
-
-  checkout_time_sec   FLOAT             Time spent        83.0
+checkout_time_sec FLOAT Time spent 83.0
 completing
 checkout, in
-seconds.          
-
-  converted           INTEGER           Indicator showing 1
+seconds. 
+converted INTEGER Indicator showing 1
 whether the
 session converted
-into an order.    
-order_value_uah     FLOAT             Order value in    576.77
+into an order. 
+order_value_uah FLOAT Order value in 576.77
 UAH; may be NULL
 for sessions
 without a
@@ -329,31 +292,26 @@ cities.city.
 Purpose: Separate set of new orders for the delivery-time prediction
 task. It contains order features available for prediction; actual
 delivery time is not included.
-  Column                BigQuery type     Description       Example
-  order_id            STRING            New order         NEW001
-identifier.       
-
-  customer_id         STRING            Customer          CUST001
-identifier.       
-
-  restaurant_id       STRING            Restaurant        REST001
-identifier.       
-
-  courier_id          STRING            Courier           COURIER001
-identifier.       
-
-  order_datetime      TIMESTAMP         Date and time of  2025-12-01 12:30:00 UTC
-the order.        
-
-  platform            STRING            Platform used to  app
-place the order.  
-
-  items_count         INTEGER           Number of items   3
-in the order.     
-
-  distance_km         FLOAT             Delivery distance 4.2
-in kilometers.    
-promised_time_min   FLOAT             Promised delivery 45.0
+________________________________________
+Column BigQuery type Description Example
+________________________________________
+order_id STRING New order NEW001
+identifier. 
+customer_id STRING Customer CUST001
+identifier. 
+restaurant_id STRING Restaurant REST001
+identifier. 
+courier_id STRING Courier COURIER001
+identifier. 
+order_datetime TIMESTAMP Date and time of 2025-12-01 12:30:00 UTC
+the order. 
+platform STRING Platform used to app
+place the order. 
+items_count INTEGER Number of items 3
+in the order. 
+distance_km FLOAT Delivery distance 4.2
+in kilometers. 
+promised_time_min FLOAT Promised delivery 45.0
 time in minutes.
 Keys and relationships: - order_id identifies a new order. -
 customer_id, restaurant_id, and courier_id correspond to
@@ -361,42 +319,36 @@ identifiers in the customers, restaurants, and couriers dimension
 tables. - In this project, new_orders is treated as a separate
 prediction dataset, not as part of the historical orders table.
 11. Relationship Summary
-  Source table         Column            Related table   Column            Purpose
-  orders             customer_id     customers     customer_id     Customer
+________________________________________
+Source table Column Related table Column Purpose
+________________________________________
+orders customer_id customers customer_id Customer
 details for an
 order
-
-  orders             restaurant_id   restaurants   restaurant_id   Restaurant
+orders restaurant_id restaurants restaurant_id Restaurant
 details for an
 order
-
-  orders             courier_id      couriers      courier_id      Courier
+orders courier_id couriers courier_id Courier
 details for an
 order
-
-  customers          city            cities        city            Customer's
+customers city cities city Customer's
 city
-
-  restaurants        city            cities        city            Restaurant's
+restaurants city cities city Restaurant's
 city
-
-  couriers           city            cities        city            Courier's work
+couriers city cities city Courier's work
 city
-
-  weather_daily      city            cities        city            City of the
+weather_daily city cities city City of the
 weather
 observation
-
-  marketing_spend    city            cities        city            City
+marketing_spend city cities city City
 associated
 with marketing
 spend
-
-  ab_test_sessions   customer_id     customers     customer_id     Customer
+ab_test_sessions customer_id customers customer_id Customer
 associated
 with an A/B
 test session
-ab_test_sessions   city            cities        city            City
+ab_test_sessions city cities city City
 associated
 with an A/B
 test session
@@ -406,27 +358,28 @@ direct one-column foreign-key relationship.
 12. Data Quality Notes
 The initial review of the source tables identified the following
 characteristics:
-- Duplicate identifiers/records were found in orders and
-  customers; deduplication was applied for the relevant analyses.
-- Missing values in orders have different meanings. For example, a
-  missing delivery_time_min is expected for a cancelled order.
-- Missing values were found in customers.age and customers.gender.
-- Casing differences and extra spaces occurred in categorical fields,
-  including payment methods and city names.
-- Negative values occurred in orders.discount_uah; this must be
-  considered when checking order-total calculations.
-- Some orders did not have a matching weather record. A LEFT JOIN
-  preserves those orders in the analysis.
-- A statistical outlier is not automatically an invalid record and
-  should not be removed without further investigation.
+•	Duplicate identifiers/records were found in orders and
+customers; deduplication was applied for the relevant analyses.
+•	Missing values in orders have different meanings. For example, a
+missing delivery_time_min is expected for a cancelled order.
+•	Missing values were found in customers.age and customers.gender.
+•	Casing differences and extra spaces occurred in categorical fields,
+including payment methods and city names.
+•	Negative values occurred in orders.discount_uah; this must be
+considered when checking order-total calculations.
+•	Some orders did not have a matching weather record. A LEFT JOIN
+preserves those orders in the analysis.
+•	A statistical outlier is not automatically an invalid record and
+should not be removed without further investigation.
 13. BigQuery Data Types
-  Type          Meaning
-  STRING      Text value or identifier
-INTEGER     Whole number
-FLOAT       Number with a fractional part
-DATE        Calendar date without a time component
-TIMESTAMP   Date and time representing a point in time
-
+Type Meaning
+________________________________________
+STRING Text value or identifier
+INTEGER Whole number
+FLOAT Number with a fractional part
+DATE Calendar date without a time component
+TIMESTAMP Date and time representing a point in time
 Note: This dictionary describes the original BigQuery source tables.
 It does not describe the cleaned Google Sheets tabs and does not replace
 the ER diagram.
+
